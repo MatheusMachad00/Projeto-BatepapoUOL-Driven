@@ -1,0 +1,73 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif
+    back
+}
+
+body {
+    background-color: #F3F3F3;
+}
+
+header{
+    background-color: rebeccapurple; /* #FFFFFF */
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 22px 11px 22px;
+    position: sticky;
+    top: 0;
+    right: 0;
+}
+
+.icon-top-right{
+    font-size: 45px;
+}
+
+footer{
+    background-color: green;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 27px 18px 18px 27px;
+}
+
+footer ion-icon {
+    height: 26px;
+    width: 26px;
+}
+
+main{
+    padding-top: 26px;
+}
+
+input {
+    width: 75vw;
+}
+
+/*Message classes*/
+div {
+    padding-bottom: 4px;
+    display: flex;
+    padding: 0 9px 0 8px;
+}
+
+strong {
+    font-weight: 700;
+}
+
+.inOut {
+    background-color: #DCDCDC;
+    font-size: 14px;
+}
+
+.message {
+    font-size: 14px;
+    background-color: #FFFFFF;
+}
+
+.pvtMessage {
+    font-size: 14px;
+    background-color: #FFDEDE;
+}
