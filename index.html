@@ -18,13 +18,12 @@
 <body>
     <header>
         <img src="images/logo 1.png" alt="logo">
-        <ion-icon class="icon-top-right" name="people"></ion-icon>
+        <button onclick="chooseAName()"><ion-icon class="icon-top-right" name="people"></ion-icon></button>
     </header>
     <main>
         <div class="inOut">
             <p class="date-time">(09:21:45)</p>
             <p><strong>João</strong> entra na sala...</p>
-            <span></span>
         </div>
         <div class="message">
             <p class="date-time">(09:21:45)</p>
@@ -32,7 +31,7 @@
         </div>
         <div class="message">
             <p class="date-time">(09:21:45)</p>
-            <p><strong>Maria</strong> para <strong>todos:</strong> Bom dia, João :)</p>
+            <p><strong>Maria</strong> para <strong>joão</strong>: Bom dia, João :)</p>
         </div>
         <div class="pvtMessage">
             <p class="date-time">(09:21:45)</p>
@@ -45,10 +44,11 @@
     </main>
     <footer>
         <input type="text" placeholder="Digite aqui...">
-        <ion-icon name="paper-plane-outline"></ion-icon>
+        <button onclick="sendMessage()"><ion-icon name="paper-plane-outline"></ion-icon></button>
     </footer>
 </body>
 <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="scripts/script.js"></script>
 
 </html>

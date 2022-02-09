@@ -9,13 +9,14 @@ body {
 }
 
 header{
-    background-color: rebeccapurple; /* #FFFFFF */
+    background-color: #FFFFFF;
     display: flex;
     justify-content: space-between;
     padding: 16px 22px 11px 22px;
     position: sticky;
     top: 0;
     right: 0;
+    box-shadow: 1px 1px 1px rgba(167, 167, 167, 0.3);
 }
 
 .icon-top-right{
@@ -23,7 +24,7 @@ header{
 }
 
 footer{
-    background-color: green;
+    background-color: #FFFFFF;
     position: fixed;
     bottom: 0;
     right: 0;
@@ -31,6 +32,7 @@ footer{
     display: flex;
     justify-content: space-between;
     padding: 27px 18px 18px 27px;
+    box-shadow: 0px 0px 0px 1px rgba(167, 167, 167, 0.3);
 }
 
 footer ion-icon {
@@ -43,7 +45,16 @@ main{
 }
 
 input {
-    width: 75vw;
+    /* width: 75vw; */
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+button {
+    padding: 0;
+    border: none;
+    background: none;
 }
 
 /*Message classes*/
