@@ -6,7 +6,6 @@
 
 body {
     background-color: #F3F3F3;
-    /* z-index: 100; */
 }
 
 header{
@@ -53,7 +52,6 @@ main{
 }
 
 input {
-    /* width: 75vw; */
     padding: 0;
     border: none;
     background: none;
