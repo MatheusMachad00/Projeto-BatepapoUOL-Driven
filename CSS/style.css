@@ -6,6 +6,7 @@
 
 body {
     background-color: #F3F3F3;
+    /* z-index: 100; */
 }
 
 header{
@@ -17,6 +18,7 @@ header{
     top: 0;
     right: 0;
     box-shadow: 1px 1px 1px rgba(167, 167, 167, 0.3);
+    z-index: 3;
 }
 
 .icon-top-right{
@@ -31,8 +33,13 @@ footer{
     left: 0;
     display: flex;
     justify-content: space-between;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
     padding: 27px 18px 18px 27px;
     box-shadow: 0px 0px 0px 1px rgba(167, 167, 167, 0.3);
+    z-index: 2;
 }
 
 footer ion-icon {
@@ -42,6 +49,7 @@ footer ion-icon {
 
 main{
     padding-top: 26px;
+    margin-bottom: 75px;
 }
 
 input {
