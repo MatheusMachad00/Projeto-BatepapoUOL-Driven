@@ -14,11 +14,16 @@ let messageTime = null;
 let status = null;
 
 function generateMessage(serverAwnser) {
-    userName = serverAwnser.data[0].from;
-    messageTo = serverAwnser.data[0].to;
-    messageText = serverAwnser.data[0].text;
-    messageTime = serverAwnser.data[0].time;
-    statusMsg = serverAwnser.data[0].type;
+    for (i = 0; i < 100; i++){
+        console.log(i);
+        console.log(serverAwnser.data[i].from);
+        userName = serverAwnser.data[i].from;
+        messageTo = serverAwnser.data[i].to;
+        messageText = serverAwnser.data[i].text;
+        messageTime = serverAwnser.data[i].time;        
+        statusMsg = serverAwnser.data[i].type;
+    }
+    
 }
 
 var interval = window.setInterval(checkMsgAPI, 3000);
@@ -54,6 +59,13 @@ function sendUserMessage() {
 </div>`;
     scroll();
 }
+
+/*let classes;
+function msgStatus {
+    if (statusMsg === 'status'){
+        
+    } else
+} */
 
 /*api: array
 {
