@@ -25,7 +25,8 @@ function chooseANameAgain(serverAwnser) {
     chooseAName();
 }
 
-/* function checkUserStatus() {
+/* REVISAR ESSAS FUNÇÕES 
+function checkUserStatus() {
     const request = axios.post('https://mock-api.driven.com.br/api/v4/uol/status', objName);
     request.then(userOnline);
     request.catch(userOffline);
@@ -61,26 +62,33 @@ let messageTo = null;
 let messageText = null;
 let messageTime = null;
 let status = null;
+let count = 0;
+
+console.log(serverAwnser);
 
 function generateMessage(serverAwnser) {
-    for (i = 0; i < 100; i++) {
-        userName = serverAwnser.data[i].from;
-        messageTo = serverAwnser.data[i].to;
-        messageText = serverAwnser.data[i].text;
-        messageTime = serverAwnser.data[i].time;
-        statusMsg = serverAwnser.data[i].type;
-    }
-
+    console.log(serverAwnser);
+    userName = serverAwnser.data[count].from;
+    messageTo = serverAwnser.data[count].to;
+    messageText = serverAwnser.data[count].text;
+    messageTime = serverAwnser.data[count].time;
+    statusMsg = serverAwnser.data[count].type;
+    serverMessages();
 }
-
-var interval = window.setInterval(checkMsgAPI, 3000);
 
 function checkMsgAPI() {
-    serverMessages(); //REMOVER O COMENTÁRIO PARA A FUNÇÃO VOLTAR AO NORMAL
+    if (count < 100){
+        count++;
+        console.log(count);
+    }
+    generateMessage();
 }
+
+//var interval = window.setInterval(checkMsgAPI, 1000);
 
 function serverMessages() {
     const main = document.querySelector("main");
+    main.innerHTML = "";
     main.innerHTML += `
     <div class="message msg" data-identifier="message">
     <p class="date-time">(${messageTime})</p>
@@ -94,16 +102,16 @@ function scroll() {
     lastMessage.scrollIntoView();
 }
 
-/* let UserMsgTime = null;
+let UserMsgTime = null;
 let userMsg = null;
-let msgTo = 'Todos';
 let msgType = 'message';
 let objMsg = {
     from: yourName,
-    to: msgTo,
-    text: userMsg,
-    type: msgType
-}; */
+    to: 'Todos',
+    /* text: userMsg,
+    type: msgType */
+};
+console.log(objMsg);
 
 function sendUserMessage() {
     var d = new Date();
@@ -116,9 +124,7 @@ function sendUserMessage() {
     <p><strong class="username">${yourName}</strong> para <strong class="messageTo">todos</strong>: ${message}</p>
 </div>`;
     scroll();
-    /* userMsg = document.querySelector('footer input').value;
-    UserMsgTime = n;
-    console.log(objMsg); */
+
 }
 
 
@@ -130,13 +136,3 @@ function msgStatus {
         
     } else
 } */
-
-/*api: array
-{
-from: "João",
-to: "Todos",
-text: "entra na sala...",
-type: "status",
-time: "08:01:17"
-}
-*/
