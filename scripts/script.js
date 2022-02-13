@@ -64,10 +64,10 @@ let messageTime = null;
 let status = null;
 let count = 0;
 
-console.log(serverAwnser);
+//console.log(serverAwnser);
 
 function generateMessage(serverAwnser) {
-    console.log(serverAwnser);
+    //.log(serverAwnser);
     userName = serverAwnser.data[count].from;
     messageTo = serverAwnser.data[count].to;
     messageText = serverAwnser.data[count].text;
@@ -104,12 +104,11 @@ function scroll() {
 
 let UserMsgTime = null;
 let userMsg = null;
-let msgType = 'message';
 let objMsg = {
     from: yourName,
     to: 'Todos',
-    /* text: userMsg,
-    type: msgType */
+    text: userMsg,
+    type: 'message'
 };
 console.log(objMsg);
 
@@ -117,17 +116,35 @@ function sendUserMessage() {
     var d = new Date();
     var n = d.toLocaleTimeString();
     const main = document.querySelector('main');
-    message = document.querySelector('footer input').value;
+    objMsg.text = document.querySelector('footer input').value;
     main.innerHTML += `
     <div class="message msg" data-identifier="message">
     <p class="date-time">(${n})</p>
-    <p><strong class="username">${yourName}</strong> para <strong class="messageTo">todos</strong>: ${message}</p>
+    <p><strong class="username">${yourName}</strong> para <strong class="messageTo">todos</strong>: ${objMsg.text}</p>
 </div>`;
     scroll();
-
+    console.log(objMsg)
+    sendUserMessageToServer();
 }
 
+function sendUserMessageToServer(){
+    const request = axios.post('https://mock-api.driven.com.br/api/v4/uol/messages', objMsg);
+    request.then(msgSent);
+    request.catch(msgNotSent);
+}
 
+function msgSent(anwser){
+    if (anwser.status === 200){
+        console.log(anwser);
+    }
+}
+
+function msgNotSent(anwser){
+    if (anwser.status !== 200){
+        alert("Mensagem inválida!")
+        window.location.reload();
+    }
+}
 
 
 /*let classes;
