@@ -21,30 +21,11 @@
         <button onclick="chooseAName()"><ion-icon class="icon-top-right" name="people"></ion-icon></button>
     </header>
     <main id="main">
-        <!-- <div class="inOut msg">
-            <p class="date-time">(09:21:45)</p>
-            <p><strong>João</strong> entra na sala...</p>
-        </div>
-        <div class="message msg">
-            <p class="date-time">(09:21:45)</p>
-            <p><strong>João</strong> para <strong>todos:</strong> Bom dia</p>
-        </div>
-        <div class="message msg">
-            <p class="date-time">(09:21:45)</p>
-            <p><strong>Maria</strong> para <strong>joão</strong>: Bom dia, João :)</p>
-        </div>
-        <div class="pvtMessage msg">
-            <p class="date-time">(09:21:45)</p>
-            <p><strong>João</strong> reservadamente para <strong>Maria:</strong> Oi gatinha quer tc?</p>
-        </div>
-        <div class="inOut msg">
-            <p class="date-time">(09:21:45)</p>
-            <p><strong>Maria</strong> saiu da sala...</p>
-        </div> -->
+        
     </main>
     <footer>
-        <input type="text" placeholder="Digite aqui...">
-        <button onclick="sendUserMessage()"><ion-icon name="paper-plane-outline"></ion-icon></button>
+        <input id="myInput" type="text" onfocus="this.value=''" placeholder="Digite aqui...">
+        <button id="myBtn" onclick="sendUserMessage()"><ion-icon name="paper-plane-outline"></ion-icon></button>
     </footer>
 </body>
 <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>

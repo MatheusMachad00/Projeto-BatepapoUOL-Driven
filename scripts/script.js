@@ -1,7 +1,7 @@
 let yourName = null;
 let objName = { name: '' };
 
-window.onload = chooseAName ();
+window.onload = chooseAName();
 
 function chooseAName() {
     objName.name = prompt("Digite seu nome: ");
@@ -12,10 +12,18 @@ function chooseAName() {
 }
 
 function validName(serverAwnser) {
+    var d = new Date();
+    var n = d.toLocaleTimeString();
     if (serverAwnser.status === 200) {
         alert("Nome disponível!");
+        const main = document.querySelector("main");
+        main.innerHTML += `
+        <div class="msg inOut" data-identifier="message">
+        <p class="date-time">(${n})</p>
+        <p><strong class="username">${yourName}</strong> entrou da sala...</p>
+        </div>`;
+        scroll();
     }
-    //checkUserStatus();
 }
 
 function chooseANameAgain(serverAwnser) {
@@ -25,7 +33,7 @@ function chooseANameAgain(serverAwnser) {
     chooseAName();
 }
 
-/* REVISAR ESSAS FUNÇÕES 
+
 function checkUserStatus() {
     const request = axios.post('https://mock-api.driven.com.br/api/v4/uol/status', objName);
     request.then(userOnline);
@@ -34,8 +42,8 @@ function checkUserStatus() {
 
 function userOnline(requestAwnser) {
     if (serverAwnser.status === 200) {
-        checkMsgAPI();
-        console.log(requestAwnser)
+        getMessageFromServer();
+        genereateMessage();
     }
 }
 
@@ -43,59 +51,46 @@ function userOffline() {
     if (serverAwnser.status !== 200) {
         const main = document.querySelector("main");
         main.innerHTML += `
-        <div class="message msg inOut" data-identifier="message">
+        <div class="msg inOut" data-identifier="message">
         <p class="date-time">(${messageTime})</p>
-        <p><strong class="username">${userName}</strong> saiu da sala...</p>
+        <p><strong class="username">${yourName}</strong> saiu da sala...</p>
         </div>`;
         scroll();
     }
     chooseAName()
 }
 
-var userOnline = window.setInterval(checkUserStatus, 5000); */
+var userOnline = window.setInterval(checkUserStatus, 5000);
 
-const promise = axios.get('https://mock-api.driven.com.br/api/v4/uol/messages');
-promise.then(generateMessage);
-
-let userName = null;
-let messageTo = null;
-let messageText = null;
-let messageTime = null;
-let status = null;
-let count = 0;
-
-//console.log(serverAwnser);
-
-function generateMessage(serverAwnser) {
-    //.log(serverAwnser);
-    userName = serverAwnser.data[count].from;
-    messageTo = serverAwnser.data[count].to;
-    messageText = serverAwnser.data[count].text;
-    messageTime = serverAwnser.data[count].time;
-    statusMsg = serverAwnser.data[count].type;
-    serverMessages();
+function getMessageFromServer() {
+    const promise = axios.get('https://mock-api.driven.com.br/api/v4/uol/messages');
+    promise.then(genereateMessage);
 }
 
-function checkMsgAPI() {
-    if (count < 100){
-        count++;
-        console.log(count);
+function genereateMessage(serverAnswer) {
+    //console.log(serverAnswer);
+    let main = document.querySelector("main");
+    for (let count = 0; count < serverAnswer.data.length; count++) {
+        main.innerHtml = "";
+        if (serverAnswer.data[count].type === 'message') {
+            main.innerHTML += `
+            <div class="message msg" data-identifier="message">
+            <p class="date-time">(${serverAnswer.data[count].time})</p>
+            <p><strong class="username">${serverAnswer.data[count].from}</strong> para <strong class="messageTo">${serverAnswer.data[count].to}</strong>: ${serverAnswer.data[count].text}</p>
+            </div>`;
+        } else if (serverAnswer.data[count].type === 'status') {
+            main.innerHTML += `
+            <div class="inOut msg">
+            <p class="date-time">(${serverAnswer.data[count].time})</p>
+            <p><strong class="username">${serverAnswer.data[count].from}</strong> ${serverAnswer.data[count].text}</p>
+            </div>`;
+        }
     }
-    generateMessage();
-}
-
-//var interval = window.setInterval(checkMsgAPI, 1000);
-
-function serverMessages() {
-    const main = document.querySelector("main");
-    main.innerHTML = "";
-    main.innerHTML += `
-    <div class="message msg" data-identifier="message">
-    <p class="date-time">(${messageTime})</p>
-    <p><strong class="username">${userName}</strong> para <strong class="messageTo">${messageTo}</strong>: ${messageText}</p>
-</div>`;
     scroll();
 }
+
+var interval = window.setInterval(getMessageFromServer, 3000);
+var interval = window.setInterval(genereateMessage, 3000);
 
 function scroll() {
     let lastMessage = document.querySelector('.msg:last-child');
@@ -107,49 +102,48 @@ let userMsg = null;
 let objMsg = {
     from: yourName,
     to: 'Todos',
-    text: userMsg,
+    text: document.querySelector('input').value,
     type: 'message'
 };
-console.log(objMsg);
 
 function sendUserMessage() {
     var d = new Date();
     var n = d.toLocaleTimeString();
     const main = document.querySelector('main');
-    objMsg.text = document.querySelector('footer input').value;
+    objMsg.text = document.querySelector('input').value;
     main.innerHTML += `
     <div class="message msg" data-identifier="message">
     <p class="date-time">(${n})</p>
     <p><strong class="username">${yourName}</strong> para <strong class="messageTo">todos</strong>: ${objMsg.text}</p>
 </div>`;
     scroll();
-    console.log(objMsg)
     sendUserMessageToServer();
 }
 
-function sendUserMessageToServer(){
+function sendUserMessageToServer() {
     const request = axios.post('https://mock-api.driven.com.br/api/v4/uol/messages', objMsg);
     request.then(msgSent);
     request.catch(msgNotSent);
 }
 
-function msgSent(anwser){
-    if (anwser.status === 200){
-        console.log(anwser);
+function msgSent(anwser) {
+    if (anwser.status === 200) {
+        getMessageFromServer();
+        genereateMessage();
     }
 }
 
-function msgNotSent(anwser){
-    if (anwser.status !== 200){
-        alert("Mensagem inválida!")
+function msgNotSent(anwser) {
+    if (anwser.status !== 200) {
+        alert("Usuário offline!")
         window.location.reload();
     }
 }
 
-
-/*let classes;
-function msgStatus {
-    if (statusMsg === 'status'){
-        
-    } else
-} */
+var input = document.getElementById("myInput");
+input.addEventListener("keyup", function (event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("myBtn").click();
+    }
+});
